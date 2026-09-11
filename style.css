@@ -1,0 +1,929 @@
+/* ==========================================================================
+   RESET & FOUNDATIONS (Mobile-First 6-inch Screen Optimization)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+:root {
+  --bg-deep: #08090c;
+  --bg-charcoal: #0e1117;
+  --text-ivory: #f7f5f0;
+  --text-muted: #a6abb4;
+  --gold-warm: #d4af37;
+  --gold-glow: rgba(212, 175, 55, 0.4);
+  --rose-subtle: #e28e9b;
+  --rose-glow: rgba(226, 142, 155, 0.35);
+  --vana-glow: rgba(235, 190, 160, 0.5);
+  
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep);
+  color: var(--text-ivory);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  position: fixed;
+}
+
+/* Ambient Canvas behind entire experience */
+#ambient-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   WANDERING CELESTIAL LIGHTS (V & A)
+   ========================================================================== */
+#celestial-beings {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 1.5s ease;
+}
+
+.celestial-node {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1s ease;
+  will-change: transform;
+}
+
+.node-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: blur(8px);
+  animation: pulseLight 3s infinite ease-in-out alternate;
+}
+
+.node-letter {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0.5px;
+}
+
+.node-v {
+  top: 25%;
+  left: 30%;
+}
+.node-v .node-glow {
+  background: radial-gradient(circle, var(--gold-warm) 0%, rgba(212,175,55,0) 75%);
+}
+.node-v .node-letter {
+  color: #fff2c4;
+}
+
+.node-a {
+  top: 35%;
+  left: 70%;
+}
+.node-a .node-glow {
+  background: radial-gradient(circle, var(--rose-subtle) 0%, rgba(226,142,155,0) 75%);
+}
+.node-a .node-letter {
+  color: #ffe6eb;
+}
+
+@keyframes pulseLight {
+  0% { transform: scale(0.85); opacity: 0.6; }
+  100% { transform: scale(1.35); opacity: 1; }
+}
+
+/* ==========================================================================
+   SCENE 0: CINEMATIC MUSIC GATE
+   ========================================================================== */
+.gate-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 40%, #151922 0%, #08090c 100%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--safe-top) + 24px) 24px calc(var(--safe-bottom) + 24px);
+  transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.8s;
+  visibility: visible;
+  opacity: 1;
+}
+
+.gate-overlay.dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gate-content {
+  text-align: center;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gate-lights-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.sparkle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px currentColor;
+}
+.dot-v {
+  background-color: var(--gold-warm);
+  color: var(--gold-warm);
+  animation: floatDot 2.4s ease-in-out infinite alternate;
+}
+.dot-a {
+  background-color: var(--rose-subtle);
+  color: var(--rose-subtle);
+  animation: floatDot 2.4s ease-in-out infinite alternate-reverse;
+}
+.sparkle-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-warm), var(--rose-subtle));
+  opacity: 0.5;
+}
+
+@keyframes floatDot {
+  0% { transform: translateY(-3px); }
+  100% { transform: translateY(3px); }
+}
+
+.gate-sub {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.gate-title {
+  font-family: var(--font-serif);
+  font-size: 38px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  color: var(--text-ivory);
+}
+
+.gate-hint {
+  font-size: 13px;
+  color: #7d8492;
+  margin-bottom: 36px;
+  font-weight: 300;
+  max-width: 260px;
+}
+
+.gate-btn {
+  position: relative;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-ivory);
+  padding: 16px 36px;
+  border-radius: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.gate-btn-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  box-shadow: 0 0 20px var(--gold-glow);
+  opacity: 0.5;
+  animation: gateGlow 2s infinite ease-in-out alternate;
+}
+
+@keyframes gateGlow {
+  0% { transform: scale(0.96); opacity: 0.3; }
+  100% { transform: scale(1.05); opacity: 0.7; }
+}
+
+.gate-btn-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--rose-subtle);
+  position: relative;
+  z-index: 2;
+}
+
+.gate-btn-label {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
+
+.gate-error-message {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--rose-subtle);
+}
+
+/* ==========================================================================
+   STORY CONTAINER & SCROLL TRACK
+   ========================================================================== */
+.story-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  z-index: 10;
+  transition: filter 0.8s ease;
+}
+
+.story-wrapper.locked {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--safe-top) + 40px) 24px calc(var(--safe-bottom) + 50px);
+  opacity: 0.2;
+  filter: blur(4px);
+  transform: translateY(20px) scale(0.98);
+  transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+              filter 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, filter, transform;
+}
+
+.scene.active-scene {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0) scale(1);
+}
+
+.scene-inner {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.scene-chapter {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-warm);
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.scene-heading {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 1.25;
+  margin-bottom: 24px;
+  color: var(--text-ivory);
+}
+
+.scene-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 28px;
+  color: #cfd4dc;
+  font-size: 14.5px;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.scene-text-block p {
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.lead-line {
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.highlight-gold {
+  color: var(--gold-warm) !important;
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.quote-style {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  color: #e6dfd3;
+  padding: 8px 16px;
+  border-left: 1px solid var(--gold-warm);
+  border-right: 1px solid var(--rose-subtle);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+}
+
+.glow-v {
+  color: var(--gold-warm);
+  font-weight: 500;
+  text-shadow: 0 0 8px var(--gold-glow);
+}
+
+.glow-a {
+  color: var(--rose-subtle);
+  font-weight: 500;
+  text-shadow: 0 0 8px var(--rose-glow);
+}
+
+/* ==========================================================================
+   CINEMATIC PHOTOGRAPH FRAMING
+   ========================================================================== */
+.cinematic-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4 / 5;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transform: scale(0.95);
+  opacity: 0.85;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease, box-shadow 1.2s ease;
+}
+
+.scene.active-scene .cinematic-photo-frame {
+  transform: scale(1);
+  opacity: 1;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.15);
+}
+
+.story-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.95) contrast(1.05);
+  transition: transform 7s ease-out;
+}
+
+.scene.active-scene .story-photo {
+  transform: scale(1.06);
+}
+
+.photo-light-sweep {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: left 1.8s ease-in-out;
+}
+
+.scene.active-scene .photo-light-sweep {
+  left: 150%;
+}
+
+/* Ambient backdrop color glow bleeding behind photo */
+.photo-ambient-blur {
+  position: absolute;
+  inset: -15px;
+  background: inherit;
+  filter: blur(25px);
+  opacity: 0.35;
+  z-index: -1;
+}
+
+/* ==========================================================================
+   INTERACTIVE CUES & VISUAL DEMONSTRATIONS
+   ========================================================================== */
+.scene-interactive-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  touch-action: manipulation;
+}
+
+.scene-interactive-cue:active {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.cue-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text-ivory);
+  font-weight: 300;
+}
+
+.cue-hand {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-hand {
+  width: 24px;
+  height: 24px;
+  stroke: var(--text-ivory);
+}
+
+/* Tap visual demonstration */
+.tap-animation .svg-hand {
+  animation: handTapDemo 2s infinite ease-in-out;
+}
+
+.tap-ripple {
+  stroke: var(--gold-warm);
+  fill: var(--gold-glow);
+  transform-origin: center;
+  animation: tapRippleAnim 2s infinite ease-out;
+}
+
+@keyframes handTapDemo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px) scale(0.92); }
+}
+
+@keyframes tapRippleAnim {
+  0% { transform: scale(0.6); opacity: 0; }
+  50% { transform: scale(1.6); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Hold visual demonstration */
+.hold-ring-progress {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 44px;
+  height: 44px;
+}
+
+.hold-ring-progress svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.bg-circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.15);
+  stroke-width: 2.5;
+}
+
+.meter-circle {
+  fill: none;
+  stroke: var(--rose-subtle);
+  stroke-width: 2.5;
+  stroke-dasharray: 113.1;
+  stroke-dashoffset: 113.1;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* Scroll Affordance (Visual prompt) */
+.scroll-affordance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  opacity: 0.6;
+  animation: breatheAffordance 2.5s infinite ease-in-out alternate;
+}
+
+.affordance-line {
+  width: 1px;
+  height: 26px;
+  background: linear-gradient(180deg, var(--gold-warm), transparent);
+}
+
+.affordance-text {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@keyframes breatheAffordance {
+  0% { opacity: 0.3; transform: translateY(-2px); }
+  100% { opacity: 0.8; transform: translateY(3px); }
+}
+
+/* ==========================================================================
+   ACT 5: THE CONFLUENCE & REVELATION
+   ========================================================================== */
+.final-scene {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.final-inner {
+  position: relative;
+  width: 100%;
+}
+
+.confluence-stage {
+  position: relative;
+  width: 200px;
+  height: 130px;
+  margin: 15px auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-center-aura {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  animation: centerAuraBreathe 3s infinite alternate ease-in-out;
+}
+
+@keyframes centerAuraBreathe {
+  0% { transform: scale(0.8); opacity: 0.3; }
+  100% { transform: scale(1.4); opacity: 0.8; }
+}
+
+.merge-orb {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  box-shadow: 0 0 24px currentColor;
+  transition: transform 1.2s cubic-bezier(0.3, 0.8, 0.2, 1), opacity 0.8s ease;
+}
+
+.orb-v {
+  left: 20px;
+  background: radial-gradient(circle, #ffe699 0%, #b8860b 100%);
+  color: #1a1600;
+  box-shadow: 0 0 25px var(--gold-glow);
+}
+
+.orb-a {
+  right: 20px;
+  background: radial-gradient(circle, #ffd0d9 0%, #c45d6e 100%);
+  color: #27060c;
+  box-shadow: 0 0 25px var(--rose-glow);
+}
+
+/* Interaction Controls */
+.interaction-terminal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.interaction-terminal.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.9);
+  display: none;
+}
+
+.final-instructions {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.climax-merge-btn {
+  position: relative;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(226, 142, 155, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 18px 36px;
+  border-radius: 36px;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.climax-pulse {
+  position: absolute;
+  inset: -2px;
+  border-radius: 38px;
+  background: linear-gradient(90deg, var(--gold-warm), var(--rose-subtle));
+  opacity: 0.4;
+  filter: blur(8px);
+  animation: climaxPulseLoop 2s infinite alternate ease-in-out;
+}
+
+@keyframes climaxPulseLoop {
+  0% { transform: scale(0.98); opacity: 0.3; }
+  100% { transform: scale(1.04); opacity: 0.8; }
+}
+
+.climax-text {
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   THE REVELATION CARD (VASHU + ANA = VANA)
+   ========================================================================== */
+.revelation-card {
+  display: none;
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1), transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(18, 22, 30, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 34px 22px 28px;
+  margin-top: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(212, 175, 55, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.revelation-card.revealed {
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.monogram-reveal {
+  margin-bottom: 22px;
+}
+
+.mono-initials {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.mono-equation {
+  margin-top: 8px;
+}
+
+.mono-sub {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #dfd7c8;
+}
+
+.mono-title {
+  font-family: var(--font-serif);
+  font-size: 54px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #fff7db 0%, #e2a8b3 50%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 6px 0;
+  text-shadow: 0 0 30px var(--vana-glow);
+}
+
+.infinity-seal {
+  width: 50px;
+  height: 20px;
+  margin: 6px auto 0;
+  color: var(--gold-warm);
+  opacity: 0.8;
+}
+
+.infinity-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.final-declaration {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+.final-vow-lead {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.final-vow-headline {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 18px;
+}
+
+.final-vow-body {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 13.5px;
+  color: #d1d5db;
+  line-height: 1.6;
+}
+
+.vow-list {
+  list-style: none;
+  margin: 12px 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vow-list li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+
+.vow-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: var(--rose-subtle);
+  font-size: 14px;
+}
+
+.vow-close {
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--gold-warm);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.final-action-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.love-signature {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.love-signature strong {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.replay-btn {
+  background: transparent;
+  border: none;
+  color: #8c93a0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: color 0.3s ease;
+}
+
+.replay-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.replay-btn:hover {
+  color: var(--text-ivory);
+}
+
+/* ==========================================================================
+   DESKTOP VIEWPORT POLISH (Responsive Graceful Adaptation)
+   ========================================================================== */
+@media (min-width: 768px) {
+  .story-wrapper {
+    max-width: 580px;
+    margin: 0 auto;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.85);
+  }
+  
+  .scene-heading {
+    font-size: 38px;
+  }
+  
+  .cinematic-photo-frame {
+    max-width: 380px;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  #ambient-canvas {
+    display: none;
+  }
+}
