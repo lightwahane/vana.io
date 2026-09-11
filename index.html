@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>Hold the light</title>
+<meta name="description" content="A small story, made for you." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ambient film grain / vignette layer, purely decorative -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- persistent starfield behind everything -->
+  <canvas id="stars" aria-hidden="true"></canvas>
+
+  <audio id="theme-audio" preload="auto" loop>
+    <source src="https://github.com/lightwahane/meow.github.io/raw/refs/heads/main/love.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- ============ MUSIC GATE ============ -->
+  <section id="gate" class="gate" aria-label="Start">
+    <div class="gate-inner">
+      <p class="gate-eyebrow">before anything else</p>
+      <button id="gate-btn" class="ember-button" aria-label="Press to begin">
+        <span class="ember-core"></span>
+        <span class="ember-ring"></span>
+        <span class="ember-ring ember-ring--delay"></span>
+      </button>
+      <p class="gate-line">press, and hold your phone a little closer</p>
+      <p class="gate-sub">(headphones make this better, if you have them)</p>
+    </div>
+  </section>
+
+  <!-- ============ MAIN EXPERIENCE ============ -->
+  <main id="experience" class="experience" hidden>
+
+    <!-- Scene 1 — opening -->
+    <section class="scene" data-scene="opening" aria-label="Opening">
+      <div class="scene-inner scene-inner--center">
+        <p class="line" data-line>You weren't expecting this.</p>
+        <p class="line" data-line>Most nights end with a message you forget by morning.</p>
+        <p class="line line--em" data-line>I wanted to make you one you wouldn't.</p>
+      </div>
+    </section>
+
+    <!-- Scene 2 — hold the ember (long press interaction) -->
+    <section class="scene" data-scene="hold-ember" aria-label="Keep the light">
+      <div class="scene-inner scene-inner--center">
+        <p class="prompt" data-prompt>there's a small light here.<br>it's going out.</p>
+
+        <div class="spark-wrap">
+          <div class="spark" id="spark" role="button" tabindex="0" aria-label="Hold to keep the light alive">
+            <span class="spark-core"></span>
+            <span class="spark-glow"></span>
+          </div>
+          <svg class="gesture gesture--hold" id="gesture-hold" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="gesture-halo" cx="60" cy="60" r="26"></circle>
+            <circle class="gesture-tip" cx="60" cy="60" r="7"></circle>
+          </svg>
+        </div>
+
+        <p class="prompt prompt--sub" id="hold-label">hold your thumb over it. don't let go.</p>
+      </div>
+    </section>
+
+    <!-- Scene 3 — first photograph -->
+    <section class="scene scene--photo" data-scene="photo-1" aria-label="A photograph">
+      <div class="photo-stage">
+        <div class="photo-frame" id="photo-frame-1">
+          <div class="photo-sweep"></div>
+          <img class="photo-img" src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo1.jpg" alt="A memory, just for you" loading="lazy" />
+        </div>
+        <p class="caption" data-line>this is where it started, for me.</p>
+      </div>
+    </section>
+
+    <!-- Scene 4 — small memory text -->
+    <section class="scene" data-scene="memory" aria-label="A small memory">
+      <div class="scene-inner scene-inner--center">
+        <p class="line" data-line>I keep catching myself on small things —</p>
+        <p class="line" data-line>the way you laugh before the joke's even finished.</p>
+        <p class="line line--em" data-line>how an ordinary Tuesday felt different, because you were in it.</p>
+      </div>
+    </section>
+
+    <!-- Scene 5 — swipe the stars away (photo 2) -->
+    <section class="scene scene--photo" data-scene="swipe-reveal" aria-label="Something hidden">
+      <div class="photo-stage">
+        <p class="prompt prompt--top" data-prompt>there's something under the stars.</p>
+        <div class="photo-frame" id="photo-frame-2">
+          <img class="photo-img" src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo2.jpg" alt="A memory, just for you" loading="lazy" />
+          <div class="star-veil" id="star-veil"></div>
+        </div>
+        <svg class="gesture gesture--swipe" id="gesture-swipe" viewBox="0 0 220 90" aria-hidden="true">
+          <line class="gesture-track" x1="30" y1="45" x2="190" y2="45"></line>
+          <circle class="gesture-tip" cx="30" cy="45" r="8"></circle>
+        </svg>
+        <p class="prompt prompt--sub" id="swipe-label">swipe, gently, to clear the sky.</p>
+      </div>
+    </section>
+
+    <!-- Scene 6 — quiet pause -->
+    <section class="scene scene--quiet" data-scene="quiet" aria-label="A pause">
+      <div class="scene-inner scene-inner--center">
+        <p class="line line--quiet" data-line>I don't say most of this out loud.</p>
+      </div>
+    </section>
+
+    <!-- Scene 7 — drag the light away (photo 3) -->
+    <section class="scene scene--photo" data-scene="drag-reveal" aria-label="One more thing hidden">
+      <div class="photo-stage">
+        <p class="prompt prompt--top" data-prompt>drag the light away.</p>
+        <div class="photo-frame" id="photo-frame-3">
+          <img class="photo-img" src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo3.JPG" alt="A memory, just for you" loading="lazy" />
+          <div class="drag-cover" id="drag-cover">
+            <div class="drag-orb" id="drag-orb"></div>
+          </div>
+        </div>
+        <p class="caption caption--after" id="drag-caption">every version of my day somehow leads back to you.</p>
+      </div>
+    </section>
+
+    <!-- Scene 8 — anticipation -->
+    <section class="scene" data-scene="anticipation" aria-label="One more thing">
+      <div class="scene-inner scene-inner--center">
+        <p class="line" data-line>You've come this far.</p>
+        <p class="line line--em" data-line>There's one more thing.</p>
+      </div>
+    </section>
+
+    <!-- Scene 9 — final hold: bring two lights together -->
+    <section class="scene" data-scene="final-hold" aria-label="Bring the lights together">
+      <div class="scene-inner scene-inner--center">
+        <p class="prompt" data-prompt>two lights.<br>hold them together.</p>
+
+        <div class="merge-wrap" id="merge-wrap">
+          <div class="merge-orb merge-orb--a" id="merge-a"></div>
+          <div class="merge-orb merge-orb--b" id="merge-b"></div>
+          <div class="merge-flash" id="merge-flash"></div>
+        </div>
+
+        <p class="prompt prompt--sub" id="merge-label">press and hold, until they become one.</p>
+      </div>
+    </section>
+
+    <!-- Scene 10 — finale -->
+    <section class="scene scene--finale" data-scene="finale" aria-label="The reveal">
+      <div class="finale-photos" aria-hidden="true">
+        <img class="finale-photo finale-photo--1" src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo1.jpg" alt="" loading="lazy" />
+        <img class="finale-photo finale-photo--2" src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo2.jpg" alt="" loading="lazy" />
+        <img class="finale-photo finale-photo--3" src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo3.JPG" alt="" loading="lazy" />
+      </div>
+      <canvas id="finale-particles" aria-hidden="true"></canvas>
+
+      <div class="finale-copy">
+        <p class="line line--finale" data-line>I don't know what this becomes.</p>
+        <p class="line line--finale" data-line>But I don't want to find out without you.</p>
+        <p class="line line--finale line--question" data-line>Will you be mine?</p>
+
+        <button id="finale-btn" class="finale-button" hidden>
+          <span>always.</span>
+        </button>
+
+        <p class="line line--closing" id="closing-line" hidden>Then it's you.<br>It's always been you.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
