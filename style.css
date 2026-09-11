@@ -352,15 +352,11 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   color: #cfd4dc;
   font-size: 14.5px;
   font-weight: 300;
   line-height: 1.65;
-}
-
-.scene-text-block p {
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .lead-line {
@@ -453,7 +449,6 @@ html, body {
   left: 150%;
 }
 
-/* Ambient backdrop color glow bleeding behind photo */
 .photo-ambient-blur {
   position: absolute;
   inset: -15px;
@@ -478,6 +473,7 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.06);
   transition: background 0.3s ease, border-color 0.3s ease;
   touch-action: manipulation;
+  margin-bottom: 12px;
 }
 
 .scene-interactive-cue:active {
@@ -506,7 +502,6 @@ html, body {
   stroke: var(--text-ivory);
 }
 
-/* Tap visual demonstration */
 .tap-animation .svg-hand {
   animation: handTapDemo 2s infinite ease-in-out;
 }
@@ -529,7 +524,6 @@ html, body {
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* Hold visual demonstration */
 .hold-ring-progress {
   position: absolute;
   top: -3px;
@@ -556,40 +550,46 @@ html, body {
   stroke-width: 2.5;
   stroke-dasharray: 113.1;
   stroke-dashoffset: 113.1;
-  transition: stroke-dashoffset 0.1s linear;
+  transition: stroke-dashoffset 0.05s linear;
 }
 
-/* Scroll Affordance (Visual prompt) */
-.scroll-affordance {
-  display: flex;
-  flex-direction: column;
+/* Next Step Interactive Button */
+.next-step-btn {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-top: 10px;
-  opacity: 0.6;
-  animation: breatheAffordance 2.5s infinite ease-in-out alternate;
-}
-
-.affordance-line {
-  width: 1px;
-  height: 26px;
-  background: linear-gradient(180deg, var(--gold-warm), transparent);
-}
-
-.affordance-text {
-  font-size: 11px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 20px;
+  border-radius: 24px;
+  color: var(--text-ivory);
+  font-size: 11.5px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--text-muted);
+  cursor: pointer;
+  margin-top: 14px;
+  transition: all 0.3s ease;
 }
 
-@keyframes breatheAffordance {
-  0% { opacity: 0.3; transform: translateY(-2px); }
-  100% { opacity: 0.8; transform: translateY(3px); }
+.next-step-btn:active {
+  background: rgba(212, 175, 55, 0.15);
+  transform: translateY(2px);
+}
+
+.next-arrow-svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--gold-warm);
+  animation: bounceDown 1.8s infinite ease-in-out;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
 }
 
 /* ==========================================================================
-   ACT 5: THE CONFLUENCE & REVELATION
+   ACT 5: PRE-MERGE VOWS & CONFLUENCE
    ========================================================================== */
 .final-scene {
   min-height: 100vh;
@@ -599,6 +599,52 @@ html, body {
 .final-inner {
   position: relative;
   width: 100%;
+}
+
+.pre-merge-vow-box {
+  margin-bottom: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.vow-questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.vow-q-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.vow-q-spark {
+  color: var(--gold-warm);
+  font-size: 14px;
+  margin-top: 1px;
+}
+
+.vow-q-item p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #e4e7ec;
+  font-weight: 300;
+}
+
+.pre-merge-whisper {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+  color: var(--rose-subtle);
+  margin-top: 16px;
+  line-height: 1.45;
 }
 
 .confluence-stage {
@@ -654,7 +700,6 @@ html, body {
   box-shadow: 0 0 25px var(--rose-glow);
 }
 
-/* Interaction Controls */
 .interaction-terminal {
   display: flex;
   flex-direction: column;
@@ -895,7 +940,7 @@ html, body {
 }
 
 /* ==========================================================================
-   DESKTOP VIEWPORT POLISH (Responsive Graceful Adaptation)
+   DESKTOP VIEWPORT POLISH
    ========================================================================== */
 @media (min-width: 768px) {
   .story-wrapper {
