@@ -166,19 +166,13 @@
   }
 
   /* ==========================================================================
-     4. SCENE CONTROLLER & AUTO-PROGRESSION (With Backwards Reanimation)
+     4. SCENE CONTROLLER (Manual Scroll / No Forced Auto-Scroll)
      ========================================================================== */
   function activateScene(index) {
     if (index < 0 || index >= scenes.length) return;
     currentSceneIndex = index;
 
-    // Clear any pending scroll timer
-    if (autoProgressTimeout) {
-      clearTimeout(autoProgressTimeout);
-      autoProgressTimeout = null;
-    }
-
-    // Toggle active class across scenes
+    // Toggle active class across scenes (re-animates on scroll up & down)
     scenes.forEach((scene, i) => {
       if (i === index) {
         scene.classList.add('active-scene');
@@ -187,48 +181,9 @@
       }
     });
 
-    // Move wandering lights
+    // Move wandering celestial lights (V & A) to match current scene
     updateCelestialLights(index);
-
-    // Schedule gentle automatic progression if scene allows
-    const config = SCENE_PACING[index];
-    if (config && config.readingDelay > 0 && !config.requiresAction) {
-      autoProgressTimeout = setTimeout(() => {
-        if (!isUserInteracting && currentSceneIndex === index) {
-          smoothScrollToScene(index + 1);
-        }
-      }, config.readingDelay);
-    }
   }
-
-  function smoothScrollToScene(targetIndex) {
-    if (targetIndex >= scenes.length) return;
-    const targetScene = scenes[targetIndex];
-    if (targetScene) {
-      targetScene.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  // IntersectionObserver: Watches scrolling in BOTH directions to re-animate views
-  const observerOptions = {
-    root: storyContainer,
-    threshold: 0.55 // Fires when scene has comfortably entered the viewport
-  };
-
-  const sceneObserver = new IntersectionObserver((entries) => {
-    if (!isExperienceUnlocked) return;
-
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const index = parseInt(entry.target.getAttribute('data-scene-index'), 10);
-        if (!isNaN(index)) {
-          activateScene(index);
-        }
-      }
-    });
-  }, observerOptions);
-
-  scenes.forEach(scene => sceneObserver.observe(scene));
 
   /* ==========================================================================
      5. ROMANTIC INTERACTIONS
