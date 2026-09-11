@@ -18,7 +18,7 @@
   --gold-warm: #d4af37;
   --gold-glow: rgba(212, 175, 55, 0.4);
   --rose-subtle: #e28e9b;
-  --rose-glow: rgba(226, 142, 155, 0.35);
+  --rose-glow: rgba(226, 142, 155, 0.4);
   --vana-glow: rgba(235, 190, 160, 0.5);
   
   --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -53,7 +53,7 @@ html, body {
 }
 
 /* ==========================================================================
-   WANDERING CELESTIAL LIGHTS (V & A)
+   WANDERING CELESTIAL LIGHTS (V & A) - BOTH FULLY ANIMATED
    ========================================================================== */
 #celestial-beings {
   position: fixed;
@@ -68,14 +68,14 @@ html, body {
 
 .celestial-node {
   position: absolute;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translate(-50%, -50%);
-  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1s ease;
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1s ease;
   will-change: transform;
 }
 
@@ -85,43 +85,72 @@ html, body {
   height: 100%;
   border-radius: 50%;
   filter: blur(8px);
-  animation: pulseLight 3s infinite ease-in-out alternate;
 }
 
 .node-letter {
   font-family: var(--font-serif);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   position: relative;
   z-index: 2;
   letter-spacing: 0.5px;
 }
 
+/* Node V (Vashu - Celestial Warm Gold) */
 .node-v {
   top: 25%;
   left: 30%;
 }
 .node-v .node-glow {
   background: radial-gradient(circle, var(--gold-warm) 0%, rgba(212,175,55,0) 75%);
+  animation: pulseGoldLight 3s infinite ease-in-out alternate;
 }
 .node-v .node-letter {
   color: #fff2c4;
+  text-shadow: 0 0 10px var(--gold-glow);
+}
+.floating-v {
+  animation: floatV 5.2s infinite ease-in-out alternate;
 }
 
+/* Node A (Ana - Ethereal Luminous Rose) */
 .node-a {
   top: 35%;
   left: 70%;
 }
 .node-a .node-glow {
   background: radial-gradient(circle, var(--rose-subtle) 0%, rgba(226,142,155,0) 75%);
+  animation: pulseRoseLight 3.4s infinite ease-in-out alternate;
 }
 .node-a .node-letter {
   color: #ffe6eb;
+  text-shadow: 0 0 10px var(--rose-glow);
+}
+.floating-a {
+  animation: floatA 5.8s infinite ease-in-out alternate;
 }
 
-@keyframes pulseLight {
+/* Independent Floating and Orbiting Keyframes for V and A */
+@keyframes floatV {
+  0% { margin-top: 0px; margin-left: 0px; }
+  50% { margin-top: -12px; margin-left: 8px; }
+  100% { margin-top: 6px; margin-left: -6px; }
+}
+
+@keyframes floatA {
+  0% { margin-top: 0px; margin-left: 0px; }
+  50% { margin-top: 14px; margin-left: -9px; }
+  100% { margin-top: -7px; margin-left: 7px; }
+}
+
+@keyframes pulseGoldLight {
   0% { transform: scale(0.85); opacity: 0.6; }
-  100% { transform: scale(1.35); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 1; }
+}
+
+@keyframes pulseRoseLight {
+  0% { transform: scale(0.9); opacity: 0.55; }
+  100% { transform: scale(1.45); opacity: 1; }
 }
 
 /* ==========================================================================
@@ -467,11 +496,11 @@ html, body {
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 14px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: background 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
   touch-action: manipulation;
   margin-bottom: 12px;
 }
@@ -649,8 +678,8 @@ html, body {
 
 .confluence-stage {
   position: relative;
-  width: 200px;
-  height: 130px;
+  width: 220px;
+  height: 140px;
   margin: 15px auto 25px;
   display: flex;
   align-items: center;
@@ -659,45 +688,57 @@ html, body {
 
 .orbit-center-aura {
   position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16) 0%, transparent 70%);
   animation: centerAuraBreathe 3s infinite alternate ease-in-out;
 }
 
 @keyframes centerAuraBreathe {
   0% { transform: scale(0.8); opacity: 0.3; }
-  100% { transform: scale(1.4); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0.85; }
 }
 
 .merge-orb {
   position: absolute;
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-serif);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   box-shadow: 0 0 24px currentColor;
-  transition: transform 1.2s cubic-bezier(0.3, 0.8, 0.2, 1), opacity 0.8s ease;
+  transition: transform 1.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
 }
 
 .orb-v {
   left: 20px;
   background: radial-gradient(circle, #ffe699 0%, #b8860b 100%);
   color: #1a1600;
-  box-shadow: 0 0 25px var(--gold-glow);
+  box-shadow: 0 0 28px var(--gold-glow);
+  animation: orbVPulse 2.6s infinite ease-in-out alternate;
 }
 
 .orb-a {
   right: 20px;
   background: radial-gradient(circle, #ffd0d9 0%, #c45d6e 100%);
   color: #27060c;
-  box-shadow: 0 0 25px var(--rose-glow);
+  box-shadow: 0 0 28px var(--rose-glow);
+  animation: orbAPulse 2.6s infinite ease-in-out alternate;
+}
+
+@keyframes orbVPulse {
+  0% { transform: translateY(-3px) scale(0.96); }
+  100% { transform: translateY(3px) scale(1.04); }
+}
+
+@keyframes orbAPulse {
+  0% { transform: translateY(3px) scale(1.04); }
+  100% { transform: translateY(-3px) scale(0.96); }
 }
 
 .interaction-terminal {
