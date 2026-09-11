@@ -21,7 +21,7 @@
   <!-- Ambient Stardust Canvas -->
   <canvas id="ambient-canvas"></canvas>
 
-  <!-- Two Animated Wandering Celestial Lights (V & A) -->
+  <!-- Two Persistent Glowing Letters Throughout the Entire Site (V & A) -->
   <div id="celestial-beings" aria-hidden="true">
     <div class="celestial-node node-v floating-v" id="nodeV">
       <span class="node-glow"></span>
@@ -71,6 +71,7 @@
           <p class="body-line">The other was luminous, pure, and quietly changing the weather of every room she entered. That was you, <strong class="glow-a">A</strong>.</p>
         </div>
 
+        <!-- Single Primary Action in 1st View (No redundant button) -->
         <div class="scene-interactive-cue" data-cue-type="tap-light">
           <div class="cue-hand tap-animation">
             <svg viewBox="0 0 32 32" class="svg-hand" fill="none" stroke="currentColor">
@@ -80,13 +81,6 @@
           </div>
           <span class="cue-label">Touch the golden spark to call her near</span>
         </div>
-
-        <button class="next-step-btn" data-goto-next aria-label="Continue to next moment">
-          <span class="next-btn-text">Gently step forward</span>
-          <svg class="next-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
       </div>
     </section>
 
@@ -144,6 +138,7 @@
           <p class="body-line quote-style">“It is forged in the late-night silence, when we choose each other even when the world gets heavy.”</p>
         </div>
 
+        <!-- Strict forward lock until completed -->
         <div class="scene-interactive-cue" data-cue-type="hold-heart" id="holdConnectionCue">
           <div class="cue-hand hold-animation">
             <svg viewBox="0 0 32 32" class="svg-hand" fill="none" stroke="currentColor">
@@ -194,7 +189,7 @@
       </div>
     </section>
 
-    <!-- ACT 5: THE CONFLUENCE & LIFETIME PROMISE -->
+    <!-- ACT 5: THE CONFLUENCE, HEART-STAR MERGE & REVEAL -->
     <section class="scene final-scene" id="scene-5" data-scene-index="4">
       <div class="scene-inner final-inner">
         <span class="scene-chapter">THE CROSSROAD</span>
@@ -221,7 +216,32 @@
           <p class="pre-merge-whisper">Because with you, Ana, I don’t just want the easy days.<br><em>I want all of it. Together.</em></p>
         </div>
 
+        <!-- CONFLUENCE STAGE WITH HEART-SHAPED STAR CONTAINER -->
         <div class="confluence-stage" id="confluenceStage">
+          <!-- Heart-Shaped Celestial Star that encompasses V and A -->
+          <div class="heart-star-vessel" id="heartStarVessel">
+            <svg viewBox="0 0 100 100" class="heart-star-svg">
+              <defs>
+                <linearGradient id="heartStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffd56b" />
+                  <stop offset="50%" stop-color="#ff8da1" />
+                  <stop offset="100%" stop-color="#e28e9b" />
+                </linearGradient>
+                <filter id="starGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <!-- 8-pointed star merged with a radiant heart profile -->
+              <path class="star-rays" d="M50,2 L55,35 L98,50 L55,65 L50,98 L45,65 L2,50 L45,35 Z" fill="none" stroke="url(#heartStarGrad)" stroke-width="1.2" opacity="0.45"/>
+              <path class="heart-contour" filter="url(#starGlow)" d="M50,82 C20,60 6,42 6,26 C6,12 18,5 30,5 C39,5 46,10 50,18 C54,10 61,5 70,5 C82,5 94,12 94,26 C94,42 80,60 50,82 Z" fill="none" stroke="url(#heartStarGrad)" stroke-width="2.5"/>
+            </svg>
+            <div class="star-core-flash" id="starCoreFlash"></div>
+          </div>
+
           <div class="orbit-center-aura" id="centerAura"></div>
           
           <div class="merge-orb orb-v" id="orbV">
@@ -234,7 +254,7 @@
         </div>
 
         <div class="interaction-terminal" id="finalInteractionUI">
-          <p class="final-instructions" id="finalInstructionText">Touch to bring our two lights into one</p>
+          <p class="final-instructions" id="finalInstructionText">Touch to bring our two lights inside the heart star</p>
           
           <button class="climax-merge-btn" id="mergeTriggerBtn">
             <span class="climax-pulse"></span>
