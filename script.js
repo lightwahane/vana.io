@@ -1,6 +1,7 @@
 /**
  * VANA — A Cinematic Interactive Story for Ana & Vashu
- * Mobile-first, manual pace, increasing vibration & bi-directional reanimation
+ * Mobile-first, manual pace, animated V & A lights, increasing vibration,
+ * Scene 3 connection lock & bi-directional reanimation
  */
 
 (function () {
@@ -14,7 +15,7 @@
   const storyContainer = document.getElementById('story-container');
   const scenes = Array.from(document.querySelectorAll('.scene'));
 
-  // Lights Nodes
+  // Lights Nodes (V and A)
   const nodeV = document.getElementById('nodeV');
   const nodeA = document.getElementById('nodeA');
 
@@ -36,6 +37,7 @@
   let currentSceneIndex = 0;
   let isExperienceUnlocked = false;
   let isUserInteracting = false;
+  let hasCompletedHold = false; // Strictly gates forward scroll past Scene 3 on first pass
 
   /* ==========================================================================
      1. AMBIENT STARDUST ENGINE (Lightweight Canvas)
@@ -120,43 +122,42 @@
   }
 
   /* ==========================================================================
-     3. LIGHTS CHOREOGRAPHY (V & A Movement Per Scene)
+     3. LIGHTS CHOREOGRAPHY (Both V & A Wander & Gravitate Closer)
      ========================================================================== */
   function updateCelestialLights(index) {
     if (!nodeV || !nodeA) return;
 
     switch(index) {
-      case 0: // Prologue
-        nodeV.style.transform = 'translate(-50%, -50%) translate3d(20vw, 25vh, 0)';
-        nodeA.style.transform = 'translate(-50%, -50%) translate3d(75vw, 40vh, 0)';
+      case 0: // Prologue: distant orbits
+        nodeV.style.transform = 'translate(-50%, -50%) translate3d(20vw, 24vh, 0)';
+        nodeA.style.transform = 'translate(-50%, -50%) translate3d(76vw, 38vh, 0)';
         break;
-      case 1: // Photo 1
-        nodeV.style.transform = 'translate(-50%, -50%) translate3d(25vw, 18vh, 0)';
+      case 1: // Photo 1: drawing closer around the top frame
+        nodeV.style.transform = 'translate(-50%, -50%) translate3d(24vw, 18vh, 0)';
         nodeA.style.transform = 'translate(-50%, -50%) translate3d(72vw, 22vh, 0)';
         break;
-      case 2: // Photo 2
-        nodeV.style.transform = 'translate(-50%, -50%) translate3d(35vw, 20vh, 0)';
-        nodeA.style.transform = 'translate(-50%, -50%) translate3d(65vw, 24vh, 0)';
+      case 2: // Photo 2: intimate orbit around the connection
+        nodeV.style.transform = 'translate(-50%, -50%) translate3d(33vw, 19vh, 0)';
+        nodeA.style.transform = 'translate(-50%, -50%) translate3d(67vw, 23vh, 0)';
         break;
-      case 3: // Photo 3
+      case 3: // Photo 3: side-by-side alignment
         nodeV.style.transform = 'translate(-50%, -50%) translate3d(40vw, 16vh, 0)';
         nodeA.style.transform = 'translate(-50%, -50%) translate3d(60vw, 18vh, 0)';
         break;
-      case 4: // Confluence
-        nodeV.style.transform = 'translate(-50%, -50%) translate3d(46vw, 28vh, 0)';
-        nodeA.style.transform = 'translate(-50%, -50%) translate3d(54vw, 28vh, 0)';
+      case 4: // Confluence: hovering directly above the merge stage
+        nodeV.style.transform = 'translate(-50%, -50%) translate3d(46vw, 27vh, 0)';
+        nodeA.style.transform = 'translate(-50%, -50%) translate3d(54vw, 27vh, 0)';
         break;
     }
   }
 
   /* ==========================================================================
-     4. SCENE CONTROLLER (Manual Pace, Bi-directional Reanimation)
+     4. SCENE CONTROLLER & SCROLL LOCK FOR FIRST-TIME HOLD
      ========================================================================== */
   function activateScene(index) {
     if (index < 0 || index >= scenes.length) return;
     currentSceneIndex = index;
 
-    // Toggle active classes (reanimates gracefully whenever entering viewport)
     scenes.forEach((scene, i) => {
       if (i === index) {
         scene.classList.add('active-scene');
@@ -176,7 +177,45 @@
     }
   }
 
-  // Interactive buttons to glide forward to the next moment
+  // --- STRICT FIRST-PASS FORWARD SCROLL LOCK AT SCENE 3 ---
+  // Allow backward scrolling anytime, but block downward scrolling past Scene 3 until hold is completed.
+  let touchStartY = 0;
+
+  storyContainer.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  storyContainer.addEventListener('touchmove', (e) => {
+    if (!hasCompletedHold && currentSceneIndex === 2) {
+      const touchCurrentY = e.touches[0].clientY;
+      const isSwipingUpwardToMoveDown = touchStartY - touchCurrentY > 15;
+
+      if (isSwipingUpwardToMoveDown) {
+        if (holdCue) {
+          holdCue.style.transform = 'scale(1.05)';
+          holdCue.style.borderColor = 'var(--gold-warm)';
+          setTimeout(() => { 
+            holdCue.style.transform = 'scale(1)'; 
+            holdCue.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+          }, 250);
+        }
+        e.preventDefault(); // Stop forward scroll until hold completes
+      }
+    }
+  }, { passive: false });
+
+  // Handle desktop trackpad / mousewheel boundary
+  storyContainer.addEventListener('wheel', (e) => {
+    if (!hasCompletedHold && currentSceneIndex === 2 && e.deltaY > 0) {
+      e.preventDefault();
+      if (holdCue) {
+        holdCue.style.transform = 'scale(1.05)';
+        setTimeout(() => { holdCue.style.transform = 'scale(1)'; }, 250);
+      }
+    }
+  }, { passive: false });
+
+  // Handle Next step buttons (Scenes 1, 2, and 4)
   document.querySelectorAll('[data-goto-next]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const parentScene = e.target.closest('.scene');
@@ -187,7 +226,7 @@
     });
   });
 
-  // Reanimate scenes on scrolling up or down
+  // Re-animate scenes on scrolling back or forth
   const observerOptions = {
     root: storyContainer,
     threshold: 0.55
@@ -200,6 +239,11 @@
       if (entry.isIntersecting) {
         const index = parseInt(entry.target.getAttribute('data-scene-index'), 10);
         if (!isNaN(index)) {
+          // If attempting to scroll past scene 2 without hold completion, bounce back
+          if (!hasCompletedHold && index > 2) {
+            smoothScrollToScene(2);
+            return;
+          }
           activateScene(index);
         }
       }
@@ -209,7 +253,7 @@
   scenes.forEach(scene => sceneObserver.observe(scene));
 
   /* ==========================================================================
-     5. ROMANTIC INTERACTIONS & INCREASING VIBRATION
+     5. ROMANTIC INTERACTIONS & DYNAMIC VIBRATIONS
      ========================================================================== */
 
   // INTERACTION 1: Tap to call her light
@@ -228,10 +272,10 @@
     });
   }
 
-  // INTERACTION 2: Press & Hold with Increasing Dynamic Vibration
+  // INTERACTION 2: Press & Hold with Increasing Vibration (UNBLOCKS FORWARD SCROLL)
   let holdTimer = null;
   let holdProgress = 0;
-  const HOLD_DURATION = 2400; // 2.4s hold
+  const HOLD_DURATION = 2400; // 2.4s
   const CIRCLE_CIRCUMFERENCE = 113.1;
 
   function setMeterProgress(percent) {
@@ -254,7 +298,7 @@
       const pct = Math.min(1, elapsed / HOLD_DURATION);
       setMeterProgress(pct);
 
-      // Accelerate pulse frequency & intensity: starts at 380ms interval down to 80ms
+      // Accelerate frequency and intensity as hold nears completion
       const vibeIntervalTime = 380 - (pct * 300);
       const vibeDuration = Math.round(15 + (pct * 35));
 
@@ -274,20 +318,21 @@
     if (holdProgress >= 1) return;
     clearInterval(holdTimer);
     setMeterProgress(0);
-    holdCueLabel.textContent = "Press and hold our connection";
+    holdCueLabel.textContent = "Press and hold our connection to proceed";
     isUserInteracting = false;
   }
 
   function completeHoldInteraction() {
     holdProgress = 1;
-    // Heartbeat pattern on release
+    hasCompletedHold = true; // PERMANENTLY UNLOCKS SCROLLING FORWARD
+
     if (navigator.vibrate) navigator.vibrate([60, 50, 90]);
-    holdCueLabel.textContent = "Bound together.";
+    holdCueLabel.textContent = "Bound together forever.";
     holdCue.style.borderColor = "var(--rose-subtle)";
 
     setTimeout(() => {
       isUserInteracting = false;
-      smoothScrollToScene(3);
+      smoothScrollToScene(3); // Naturally carries her into Scene 4
     }, 1100);
   }
 
@@ -300,24 +345,28 @@
     holdCue.addEventListener('mouseleave', cancelHold);
   }
 
-  // INTERACTION 3: Climax Convergence (V + A = VANA)
+  // INTERACTION 3: Climax Convergence (V + A Meet and Fuse into VANA)
   if (mergeTriggerBtn) {
     mergeTriggerBtn.addEventListener('click', () => {
-      if (navigator.vibrate) navigator.vibrate([40, 80, 40, 80, 120]);
+      if (navigator.vibrate) navigator.vibrate([40, 80, 40, 80, 140]);
 
+      // Soften question card
       const preMergeVows = document.getElementById('preMergeVows');
       if (preMergeVows) {
         preMergeVows.style.transition = 'opacity 0.6s ease';
         preMergeVows.style.opacity = '0';
       }
 
-      orbV.style.transform = 'translateX(50px) scale(1.15)';
-      orbA.style.transform = 'translateX(-50px) scale(1.15)';
+      // V and A glide into each other at the center
+      orbV.style.transform = 'translateX(55px) scale(1.2)';
+      orbA.style.transform = 'translateX(-55px) scale(1.2)';
       finalInteractionUI.classList.add('hidden');
 
       setTimeout(() => {
         orbV.style.opacity = '0';
         orbA.style.opacity = '0';
+
+        // Unveil VANA revelation card
         revelationCard.classList.add('revealed');
         revelationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         spawnClimaxStardust();
@@ -326,13 +375,13 @@
   }
 
   function spawnClimaxStardust() {
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 42; i++) {
       const p = new StardustParticle();
       p.x = canvas.width * 0.5 + (Math.random() - 0.5) * 120;
       p.y = canvas.height * 0.5 + (Math.random() - 0.5) * 120;
-      p.speedY = (Math.random() - 0.5) * 4;
-      p.speedX = (Math.random() - 0.5) * 4;
-      p.size = Math.random() * 3 + 1;
+      p.speedY = (Math.random() - 0.5) * 4.5;
+      p.speedX = (Math.random() - 0.5) * 4.5;
+      p.size = Math.random() * 3.2 + 1;
       particles.push(p);
     }
   }
