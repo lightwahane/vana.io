@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <title>For Ana — In All This Universe</title>
+  
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Audio Element -->
+  <audio id="bg-music" preload="auto" loop playsinline>
+    <source src="https://github.com/lightwahane/meow.github.io/raw/refs/heads/main/love.mp3" type="audio/mp3" />
+  </audio>
+
+  <!-- Ambient Cinematic Canvas (Subtle stardust & light drift) -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- TWO PERSISTENT WANDERING LIGHTS (V & A) -->
+  <div id="celestial-beings" aria-hidden="true">
+    <div class="celestial-node node-v" id="nodeV">
+      <span class="node-glow"></span>
+      <span class="node-letter">V</span>
+    </div>
+    <div class="celestial-node node-a" id="nodeA">
+      <span class="node-glow"></span>
+      <span class="node-letter">A</span>
+    </div>
+  </div>
+
+  <!-- SCREEN 0: CINEMATIC MUSIC GATE -->
+  <section id="gate-screen" class="gate-overlay active" aria-label="Music initiation gate">
+    <div class="gate-content">
+      <div class="gate-lights-preview">
+        <span class="sparkle-dot dot-v"></span>
+        <span class="sparkle-line"></span>
+        <span class="sparkle-dot dot-a"></span>
+      </div>
+      <p class="gate-sub">A universe for two</p>
+      <h1 class="gate-title">Ana &amp; Vashu</h1>
+      <p class="gate-hint">Turn your volume up. Put your headphones on if you have them.</p>
+
+      <button id="gate-start-btn" class="gate-btn" aria-label="Begin story">
+        <span class="gate-btn-pulse"></span>
+        <svg class="gate-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span class="gate-btn-label">Step Inside</span>
+      </button>
+      
+      <p id="gate-error" class="gate-error-message" style="display: none;">Please tap again to allow the sound to play.</p>
+    </div>
+  </section>
+
+  <!-- MAIN SCROLLING STORYBOARD -->
+  <main id="story-container" class="story-wrapper locked" tabindex="-1">
+
+    <!-- ACT 1: THE DRIFT -->
+    <section class="scene" id="scene-1" data-scene-index="0">
+      <div class="scene-inner">
+        <span class="scene-chapter">PROLOGUE</span>
+        <h2 class="scene-heading">In a world of eight billion orbits...</h2>
+        <div class="scene-text-block">
+          <p class="lead-line">There were two solitary lights wandering the noise.</p>
+          <p class="body-line">One was carrying dreams, doubts, and silent prayers. That was me, <strong class="glow-v">V</strong>.</p>
+          <p class="body-line">The other was luminous, pure, and quietly changing the weather of every room she entered. That was you, <strong class="glow-a">A</strong>.</p>
+        </div>
+
+        <div class="scene-interactive-cue" data-cue-type="tap-light">
+          <div class="cue-hand tap-animation">
+            <svg viewBox="0 0 32 32" class="svg-hand" fill="none" stroke="currentColor">
+              <path d="M16 6v10m-3-6v6m6-3v4m-9-1v3c0 4 3 7 7 7s7-3 7-7v-6" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="16" cy="4" r="2" class="tap-ripple"/>
+            </svg>
+          </div>
+          <span class="cue-label">Touch the golden spark to call her near</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 2: MEMORY ONE (FIRST PHOTO) -->
+    <section class="scene" id="scene-2" data-scene-index="1">
+      <div class="scene-inner">
+        <span class="scene-chapter">MOMENT I</span>
+        <h2 class="scene-heading">The day the drift stopped.</h2>
+        
+        <div class="cinematic-photo-frame" id="photo-frame-1">
+          <div class="photo-ambient-blur"></div>
+          <img 
+            src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo1.jpg" 
+            alt="Ana - First cherished memory" 
+            class="story-photo" 
+            loading="lazy" 
+          />
+          <div class="photo-light-sweep"></div>
+        </div>
+
+        <div class="scene-text-block">
+          <p class="body-line">Before you, time was just a clock ticking forward. Then I looked at you, and the entire universe narrowed down into one point of focus.</p>
+          <p class="body-line">I still remember how my heartbeat felt when I first knew: <em>I don't want an ordinary story. I want her.</em></p>
+        </div>
+
+        <div class="scroll-affordance">
+          <span class="affordance-line"></span>
+          <span class="affordance-text">When you're ready, slide softly</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 3: THE DEPTH (PHOTO 2 & REFLECTION) -->
+    <section class="scene" id="scene-3" data-scene-index="2">
+      <div class="scene-inner">
+        <span class="scene-chapter">MOMENT II</span>
+        <h2 class="scene-heading">Not just the easy days.</h2>
+
+        <div class="cinematic-photo-frame" id="photo-frame-2">
+          <div class="photo-ambient-blur"></div>
+          <img 
+            src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo2.jpg" 
+            alt="Ana - Our shared laughter and depth" 
+            class="story-photo" 
+            loading="lazy" 
+          />
+          <div class="photo-light-sweep"></div>
+        </div>
+
+        <div class="scene-text-block">
+          <p class="body-line">We already love each other. We already know the warmth of holding hands in the dark, and the effortless laughter that fills our space.</p>
+          <p class="body-line">Love isn’t just made on the sunny afternoons where everything makes sense.</p>
+          <p class="body-line quote-style">“It is forged in the late-night silence, when we choose each other even when the world gets heavy.”</p>
+        </div>
+
+        <div class="scene-interactive-cue" data-cue-type="hold-heart">
+          <div class="cue-hand hold-animation">
+            <svg viewBox="0 0 32 32" class="svg-hand" fill="none" stroke="currentColor">
+              <path d="M16 6v10m-3-6v6m6-3v4m-9-1v3c0 4 3 7 7 7s7-3 7-7v-6" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <div class="hold-ring-progress">
+              <svg viewBox="0 0 44 44">
+                <circle class="bg-circle" cx="22" cy="22" r="18" />
+                <circle class="meter-circle" id="holdCircleMeter" cx="22" cy="22" r="18" />
+              </svg>
+            </div>
+          </div>
+          <span class="cue-label" id="holdCueLabel">Press and hold our connection</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 4: THE HONEST PROMISE (PHOTO 3) -->
+    <section class="scene" id="scene-4" data-scene-index="3">
+      <div class="scene-inner">
+        <span class="scene-chapter">MOMENT III</span>
+        <h2 class="scene-heading">I want the whole storm with you.</h2>
+
+        <div class="cinematic-photo-frame" id="photo-frame-3">
+          <div class="photo-ambient-blur"></div>
+          <img 
+            src="https://raw.githubusercontent.com/lightwahane/ana.github.io/refs/heads/main/photo3.JPG" 
+            alt="Ana - Pure grace" 
+            class="story-photo" 
+            loading="lazy" 
+          />
+          <div class="photo-light-sweep"></div>
+        </div>
+
+        <div class="scene-text-block">
+          <p class="body-line">I don't just want the easy laughter and the celebrations.</p>
+          <p class="body-line">I want the silly arguments that end in sudden hugs. I want the days when we are tired, broken, and stressed, so I can stand guard around your heart.</p>
+          <p class="body-line">I want the hardships, the tears, the quiet breakfasts, and every unexpected chapter life throws at us.</p>
+          <p class="lead-line highlight-gold">If it means experiencing it beside you, I choose all of it. Every single shade of reality.</p>
+        </div>
+
+        <div class="scroll-affordance">
+          <span class="affordance-line"></span>
+          <span class="affordance-text">One final step forward</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 5: THE CONFLUENCE (FINAL INTERACTION & BIG REVEAL) -->
+    <section class="scene final-scene" id="scene-5" data-scene-index="4">
+      <div class="scene-inner final-inner">
+        <span class="scene-chapter">THE CONVERGENCE</span>
+        
+        <div class="confluence-stage" id="confluenceStage">
+          <!-- Draggable or tap-to-merge interactive particles -->
+          <div class="orbit-center-aura" id="centerAura"></div>
+          
+          <div class="merge-orb orb-v" id="orbV">
+            <span>V</span>
+          </div>
+          
+          <div class="merge-orb orb-a" id="orbA">
+            <span>A</span>
+          </div>
+        </div>
+
+        <div class="interaction-terminal" id="finalInteractionUI">
+          <p class="final-instructions" id="finalInstructionText">Touch both lights to bring them home together</p>
+          
+          <button class="climax-merge-btn" id="mergeTriggerBtn">
+            <span class="climax-pulse"></span>
+            <span class="climax-text">Merge V &amp; A</span>
+          </button>
+        </div>
+
+        <!-- HIDDEN CLIMAX CARD (REVEALED ON MERGE) -->
+        <div class="revelation-card" id="revelationCard">
+          <div class="revelation-stardust"></div>
+          
+          <div class="monogram-reveal">
+            <span class="mono-initials">Vashu &amp; Ana</span>
+            <div class="mono-equation">
+              <span class="mono-sub">V + A</span>
+              <h1 class="mono-title">VANA</h1>
+              <div class="infinity-seal">
+                <svg viewBox="0 0 100 40" class="infinity-svg">
+                  <path d="M25,20 C10,5 0,15 0,20 C0,25 10,35 25,20 C40,5 50,5 50,20 C50,35 60,35 75,20 C90,5 100,15 100,20 C100,25 90,35 75,20 C60,5 50,5 50,20 C50,35 40,35 25,20 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="final-declaration">
+            <p class="final-vow-lead">No more <em>“You”</em> and <em>“Me”</em>.</p>
+            <h2 class="final-vow-headline">Let Us Become US.</h2>
+            <div class="final-vow-body">
+              <p>For a lifetime of sharing everything:</p>
+              <ul class="vow-list">
+                <li>Every laughter that shakes our ribs</li>
+                <li>Every fight we heal with understanding</li>
+                <li>Every sadness we cut in half because we carry it together</li>
+                <li>Every triumph that tastes sweeter in your arms</li>
+              </ul>
+              <p class="vow-close">I am here. For all of it. For all of you. Forever.</p>
+            </div>
+          </div>
+
+          <div class="final-action-footer">
+            <div class="love-signature">
+              <span>Yours completely,</span>
+              <strong>Vashu</strong>
+            </div>
+            
+            <button class="replay-btn" id="replayExperienceBtn" aria-label="Replay experience from beginning">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+              <span>Relive From the Beginning</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
