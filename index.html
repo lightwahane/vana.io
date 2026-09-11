@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
   <title>For Ana — In All This Universe</title>
   
-  <!-- Preconnect & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -19,10 +18,10 @@
     <source src="https://github.com/lightwahane/meow.github.io/raw/refs/heads/main/love.mp3" type="audio/mp3" />
   </audio>
 
-  <!-- Ambient Cinematic Canvas (Subtle stardust & light drift) -->
+  <!-- Ambient Stardust Canvas -->
   <canvas id="ambient-canvas"></canvas>
 
-  <!-- TWO PERSISTENT WANDERING LIGHTS (V & A) -->
+  <!-- Persistent Wandering Celestial Lights (V & A) -->
   <div id="celestial-beings" aria-hidden="true">
     <div class="celestial-node node-v" id="nodeV">
       <span class="node-glow"></span>
@@ -81,6 +80,13 @@
           </div>
           <span class="cue-label">Touch the golden spark to call her near</span>
         </div>
+
+        <button class="next-step-btn" data-goto-next aria-label="Continue to next moment">
+          <span class="next-btn-text">Gently step forward</span>
+          <svg class="next-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -106,10 +112,12 @@
           <p class="body-line">I still remember how my heartbeat felt when I first knew: <em>I don't want an ordinary story. I want her.</em></p>
         </div>
 
-        <div class="scroll-affordance">
-          <span class="affordance-line"></span>
-          <span class="affordance-text">When you're ready, slide softly</span>
-        </div>
+        <button class="next-step-btn" data-goto-next aria-label="Continue to next moment">
+          <span class="next-btn-text">Gently step forward</span>
+          <svg class="next-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -150,6 +158,13 @@
           </div>
           <span class="cue-label" id="holdCueLabel">Press and hold our connection</span>
         </div>
+
+        <button class="next-step-btn" data-goto-next aria-label="Continue to next moment">
+          <span class="next-btn-text">Gently step forward</span>
+          <svg class="next-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -177,20 +192,43 @@
           <p class="lead-line highlight-gold">If it means experiencing it beside you, I choose all of it. Every single shade of reality.</p>
         </div>
 
-        <div class="scroll-affordance">
-          <span class="affordance-line"></span>
-          <span class="affordance-text">One final step forward</span>
-        </div>
+        <button class="next-step-btn" data-goto-next aria-label="Continue to next moment">
+          <span class="next-btn-text">Gently step forward</span>
+          <svg class="next-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
     </section>
 
-    <!-- ACT 5: THE CONFLUENCE (FINAL INTERACTION & BIG REVEAL) -->
+    <!-- ACT 5: THE CONFLUENCE & LIFETIME PROMISE -->
     <section class="scene final-scene" id="scene-5" data-scene-index="4">
       <div class="scene-inner final-inner">
-        <span class="scene-chapter">THE CONVERGENCE</span>
+        <span class="scene-chapter">THE CROSSROAD</span>
         
+        <!-- PRE-MERGE HEART QUESTION -->
+        <div class="pre-merge-vow-box" id="preMergeVows">
+          <h2 class="scene-heading">Before our lights become one...</h2>
+          
+          <div class="vow-questions-list">
+            <div class="vow-q-item">
+              <span class="vow-q-spark">✦</span>
+              <p>Will you stand with me in the dark times, when the world feels heavy and answers are hard to find?</p>
+            </div>
+            <div class="vow-q-item">
+              <span class="vow-q-spark">✦</span>
+              <p>Even when we fight, when words fall clumsy—will you still hold my hand and choose us through the silence?</p>
+            </div>
+            <div class="vow-q-item">
+              <span class="vow-q-spark">✦</span>
+              <p>Will you look for quiet joy with me in ordinary chai cups and rainy afternoons, just as fiercely as in our biggest celebrations?</p>
+            </div>
+          </div>
+
+          <p class="pre-merge-whisper">Because with you, Ana, I don’t just want the easy days.<br><em>I want all of it. Together.</em></p>
+        </div>
+
         <div class="confluence-stage" id="confluenceStage">
-          <!-- Draggable or tap-to-merge interactive particles -->
           <div class="orbit-center-aura" id="centerAura"></div>
           
           <div class="merge-orb orb-v" id="orbV">
@@ -203,7 +241,7 @@
         </div>
 
         <div class="interaction-terminal" id="finalInteractionUI">
-          <p class="final-instructions" id="finalInstructionText">Touch both lights to bring them home together</p>
+          <p class="final-instructions" id="finalInstructionText">Touch both lights to seal our lifetime</p>
           
           <button class="climax-merge-btn" id="mergeTriggerBtn">
             <span class="climax-pulse"></span>
@@ -211,7 +249,7 @@
           </button>
         </div>
 
-        <!-- HIDDEN CLIMAX CARD (REVEALED ON MERGE) -->
+        <!-- REVELATION CARD (VASHU + ANA = VANA) -->
         <div class="revelation-card" id="revelationCard">
           <div class="revelation-stardust"></div>
           
@@ -235,9 +273,9 @@
               <p>For a lifetime of sharing everything:</p>
               <ul class="vow-list">
                 <li>Every laughter that shakes our ribs</li>
-                <li>Every fight we heal with understanding</li>
-                <li>Every sadness we cut in half because we carry it together</li>
-                <li>Every triumph that tastes sweeter in your arms</li>
+                <li>Every fight we heal with gentleness and truth</li>
+                <li>Every sadness halved because we carry it shoulder to shoulder</li>
+                <li>Every tiny morning and giant milestone side by side</li>
               </ul>
               <p class="vow-close">I am here. For all of it. For all of you. Forever.</p>
             </div>
