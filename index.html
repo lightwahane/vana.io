@@ -21,13 +21,13 @@
   <!-- Ambient Stardust Canvas -->
   <canvas id="ambient-canvas"></canvas>
 
-  <!-- Persistent Wandering Celestial Lights (V & A) -->
+  <!-- Two Animated Wandering Celestial Lights (V & A) -->
   <div id="celestial-beings" aria-hidden="true">
-    <div class="celestial-node node-v" id="nodeV">
+    <div class="celestial-node node-v floating-v" id="nodeV">
       <span class="node-glow"></span>
       <span class="node-letter">V</span>
     </div>
-    <div class="celestial-node node-a" id="nodeA">
+    <div class="celestial-node node-a floating-a" id="nodeA">
       <span class="node-glow"></span>
       <span class="node-letter">A</span>
     </div>
@@ -121,7 +121,7 @@
       </div>
     </section>
 
-    <!-- ACT 3: THE DEPTH (PHOTO 2 & REFLECTION) -->
+    <!-- ACT 3: THE DEPTH (PHOTO 2 & CONNECTION LOCK) -->
     <section class="scene" id="scene-3" data-scene-index="2">
       <div class="scene-inner">
         <span class="scene-chapter">MOMENT II</span>
@@ -144,7 +144,7 @@
           <p class="body-line quote-style">“It is forged in the late-night silence, when we choose each other even when the world gets heavy.”</p>
         </div>
 
-        <div class="scene-interactive-cue" data-cue-type="hold-heart">
+        <div class="scene-interactive-cue" data-cue-type="hold-heart" id="holdConnectionCue">
           <div class="cue-hand hold-animation">
             <svg viewBox="0 0 32 32" class="svg-hand" fill="none" stroke="currentColor">
               <path d="M16 6v10m-3-6v6m6-3v4m-9-1v3c0 4 3 7 7 7s7-3 7-7v-6" stroke-width="1.5" stroke-linecap="round"/>
@@ -156,15 +156,8 @@
               </svg>
             </div>
           </div>
-          <span class="cue-label" id="holdCueLabel">Press and hold our connection</span>
+          <span class="cue-label" id="holdCueLabel">Press and hold our connection to proceed</span>
         </div>
-
-        <button class="next-step-btn" data-goto-next aria-label="Continue to next moment">
-          <span class="next-btn-text">Gently step forward</span>
-          <svg class="next-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
       </div>
     </section>
 
@@ -241,7 +234,7 @@
         </div>
 
         <div class="interaction-terminal" id="finalInteractionUI">
-          <p class="final-instructions" id="finalInstructionText">Touch both lights to seal our lifetime</p>
+          <p class="final-instructions" id="finalInstructionText">Touch to bring our two lights into one</p>
           
           <button class="climax-merge-btn" id="mergeTriggerBtn">
             <span class="climax-pulse"></span>
